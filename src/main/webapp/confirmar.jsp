@@ -18,7 +18,7 @@
 	<jsp:include page="header.jsp"></jsp:include>
 
 
-	<div class="container">
+	<div class="container" id="contenedor">
 
 		
 			<fieldset>
@@ -195,15 +195,31 @@
 				</table>
 			</fieldset>
 			<div class="row">
-				<div class="col">
-					<input type="submit" name="enviar" value="Todo Correcto"
-						class="btn btn-success large">
+				<div class="col">					
+				<!-- Esta seccion arreglar para el tema de las sesioens-->
+					<button type="button" value="alta" name="alta" class="btn btn-success large " onclick="ocultar()">Alta</button>
 				</div>
 				<div class="col">
 					<a href="javascript: history.go(-1)" class="btn btn-success large " role="button">Corregir</a>
 				</div>
 			</div>
-
-	</div>
+		</div>	
+		
+		<div class="container text-center"  id="final">
+			<div class="row justify-content-around mt-4 pt-4" style="display:none">
+			<div class="col-9 ">
+				<strong class="text-success mt-4 pt-4">El alta de <c:out
+						value="${nombreN}"></c:out> con el ID=<c:out value="${idNino}"></c:out>
+					se ha realizado correctamente
+				</strong>
+			</div>
+		</div>
+		</div>
+		<script>
+			function ocultar(){
+				document.getElementById('contenedor').style.display = 'none';
+				document.getElementById('final').style.display = '';
+			} 
+		</script>
 </body>
 </html>

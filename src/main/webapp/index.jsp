@@ -106,6 +106,9 @@
 					</div>
 				</div>
 				<hr>
+				
+				
+				
 				<div class="row g-3">
 					<div class="col">
 						<input type="text" name="nombreApellidoT2" class="form-control text-capitalize"
@@ -122,7 +125,7 @@
 							placeholder="Profesión" aria-label="First name">
 					</div>
 					<div class="col">
-						<input type="text" name="telefonoT2" class="form-contro text-capitalize"
+						<input type="text" name="telefonoT2" class="form-control text-capitalize"
 							placeholder="Teléfono" aria-label="Last name">
 					</div>
 				</div>
