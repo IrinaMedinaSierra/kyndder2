@@ -2,48 +2,32 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>MyKindder</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
+<jsp:include page="header.jsp"></jsp:include>
 <body>
-
-	<jsp:include page="header.jsp"></jsp:include>
 
 
 	<div class="container" id="contenedor">
-
-		
-			<fieldset>
-				<legend
-					class="bg-success-subtle shadow-sm p-3 my-1 bg-body-tertiary rounded">Datos
-					del Niño/a</legend>
-				<div class="row g-3 my-1">
+			<div>
+					<h4 class="bg-success-subtle shadow-sm p-3 my-1 bg-body-tertiary rounded">Datos
+					del Niño/a</h4>
+					<div class="row g-3 my-1">
 					<div class="col">
 						<b>Nombre:</b>
-						<c:out value="${ param.nombre}"></c:out>
+						${param.nombre}
 					</div>
 					<div class="col">
 						<b>Apellidos: </b>
-						<c:out value="${param.apellidos}"></c:out>
+						${param.apellidos}
 					</div>
 				</div>
-
 				<div class="row g-3 my-1">
 					<div class="col">
 						<b>Fecha de Nacimiento: </b>
-						<c:out value="${param.fechaNacimiento}"></c:out>
+						<c:out value="${param.fechaNacimiento}" ></c:out>
 					</div>
 					<div class="col">
 						<b>Dirección: </b>
-						<c:out value="${param.direccion}"></c:out>
+						<c:out value="${param.direccion}" />
 					</div>
 				</div>
 				<div class="row g-3 my-1">
@@ -56,7 +40,9 @@
 						<c:out value="${param.cp}"></c:out>
 					</div>
 				</div>
-			</fieldset>
+			</div>
+			
+			
 			<fieldset>
 				<legend
 					class="bg-success-subtle bg-success-subtle shadow-sm p-3 my-1 bg-body-tertiary rounded">Datos
@@ -195,31 +181,19 @@
 				</table>
 			</fieldset>
 			<div class="row">
-				<div class="col">					
+				<div class="col">	
+						
 				<!-- Esta seccion arreglar para el tema de las sesioens-->
-					<button type="button" value="alta" name="alta" class="btn btn-success large " onclick="ocultar()">Alta</button>
+					<a href="saludo.jsp" class="btn btn-success large" role="button">Todo Correcto</a>
 				</div>
 				<div class="col">
+					<!-- se puede insertar comandos javascript dentro del mismo jsp  -->
 					<a href="javascript: history.go(-1)" class="btn btn-success large " role="button">Corregir</a>
+				</div>
+				<div class="col">
+					<a href="javascript: window.print()" class="btn btn-success large " role="button"> &#128424;</a>
 				</div>
 			</div>
 		</div>	
-		
-		<div class="container text-center"  id="final">
-			<div class="row justify-content-around mt-4 pt-4" style="display:none">
-			<div class="col-9 ">
-				<strong class="text-success mt-4 pt-4">El alta de <c:out
-						value="${nombreN}"></c:out> con el ID=<c:out value="${idNino}"></c:out>
-					se ha realizado correctamente
-				</strong>
-			</div>
-		</div>
-		</div>
-		<script>
-			function ocultar(){
-				document.getElementById('contenedor').style.display = 'none';
-				document.getElementById('final').style.display = '';
-			} 
-		</script>
 </body>
 </html>

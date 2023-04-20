@@ -14,10 +14,12 @@ import java.util.List;
 import javax.lang.model.element.NestingKind;
 
 import org.eclipse.jdt.internal.compiler.IDebugRequestor;
+import org.eclipse.jdt.internal.compiler.env.IRecordComponent;
 
 import com.cursoceat.modell.Autorizados;
 import com.cursoceat.modell.Nino;
 import com.cursoceat.modell.Tutores;
+import com.oracle.wls.shaded.org.apache.bcel.generic.I2F;
 import com.oracle.wls.shaded.org.apache.xml.utils.SystemIDResolver;
 
 /**
@@ -31,11 +33,12 @@ public class Controller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// TODO Auto-generated method stub
 		/**
 		 * Datos del Nino
 		 */
-		String nombreNino=request.getParameter("nombre");
+		String nombreNino=request.getParameter("nombre"); //los valores vienen del jsp y almacena del name="nombre" su valor
 		String apellidosNino=request.getParameter("apellidos");
 		String fNacimiento=request.getParameter("fechaNacimiento");
 		String direccionN=request.getParameter("direccion");
@@ -61,22 +64,26 @@ public class Controller extends HttpServlet {
 		/**
 		 * Datos de todos los autorizados
 		 */
-		int autorizados=1;
+	
 		String autor1=request.getParameter("autor1");
 		String dniAuto1=request.getParameter("dniAuto1");
 		String telefonoAuto1=request.getParameter("telefonoAuto1");
 		String parentAuto1=request.getParameter("parentAuto1");
+		String errorT="";
 			
+		//validar fnacimiento
+		//validar dni
 		
 		if (nombreNino.isEmpty() || apellidosNino.isEmpty() || fNacimiento.isEmpty() || direccionN.isEmpty() 
 				|| poblacionN.isEmpty() || cpN.isEmpty() || nombreTutor1.isEmpty() ||
 				dniT1.isEmpty() || telefonoT1.isEmpty() || parentesco.isEmpty() || autor1.isEmpty() || dniAuto1.isEmpty() 
-				|| telefonoAuto1.isEmpty() || parentAuto1.isEmpty()) {
-			String error="Los campos requeridos son obligatorios";
-			request.setAttribute("error", error); //no se envia hasta que se despache
+				|| telefonoAuto1.isEmpty() || parentAuto1.isEmpty() || !validarTel(telefonoT1) ) {
+			String errorE="Hay errores en el formulario o hay campos vacios";
+			request.setAttribute("error", errorE); //no se envia hasta que se despache
 			request.getRequestDispatcher("index.jsp").forward(request, response);//no se muestra si tengo quien lo muestre
 			
 		}else {		
+			request.setAttribute("apellidos", apellidosNino);
 			request.getRequestDispatcher("confirmar.jsp").forward(request, response);
 			
 			/**
@@ -85,8 +92,6 @@ public class Controller extends HttpServlet {
 				List<Nino> miNiList=new ArrayList<Nino>(); 
 				List<Tutores> tutoList=new ArrayList<Tutores>();
 				List<Autorizados> autoList=new ArrayList<Autorizados>();
-				
-							
 				
 				Nino miNino=new Nino(nombreNino, apellidosNino, direccionN, poblacionN, cpN, fNacimiento, 
 						alergia, alergiaAli, intolerancia, medicacion, observaciones);
@@ -148,6 +153,9 @@ public class Controller extends HttpServlet {
 	}
 
 	
+	
+	
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -156,4 +164,14 @@ public class Controller extends HttpServlet {
 		doGet(request, response);
 	}
 
+    public boolean validarTel(String tele) {
+		
+		if ((!tele.startsWith("9") && !tele.startsWith("6") && !tele.startsWith("7") ) || tele.length()!=9 )	{
+			System.out.println(false);
+		return false;	
+		}else {
+			System.out.println(true);
+		return true;
+		}
+	}
 }
