@@ -25,10 +25,10 @@
 					 parámetro de contexto en JSP -->
 						<input type="text" name="nombre"
 							class="form-control text-capitalize" placeholder="Nombre*"
-							aria-label="First name"  value="${param.nombre}">
+							aria-label="First name"  value="${param.nombre}" pattern="[a-zA-Z ]+">
 					</div>
 					<div class="col">
-						<input type="text" name="apellidos"
+						<input type="text" name="apellidos" pattern="[a-zA-Z ]+"
 							class="form-control text-capitalize" placeholder="Apellidos*"
 							aria-label="Last name" required value="<c:out value="${param.apellidos}"></c:out>">
 					</div>
@@ -54,12 +54,12 @@
 					<div class="col">
 						<input type="text" name="poblacion"
 							class="form-control text-capitalize" placeholder="Población*"
-							required aria-label="City" value="${param.poblacion}">
+							required aria-label="City" value="${param.poblacion}" pattern="[a-zA-Z ]+">
 					</div>
 					<div class="col">
 						<input type="text" name="cp" class="form-control text-capitalize"
 							placeholder="Código Postal" aria-label="CP" required
-							value="${param.cp}">
+							value="${param.cp}" pattern="[0-9]{5}">
 					</div>
 				</div>
 			</fieldset>
@@ -72,24 +72,24 @@
 						<input type="text" name="nombreApellidoT1"
 							class="form-control text-capitalize"
 							placeholder="Nombre y Apellidos*" aria-label="First name"
-							required value="${param.nombreApellidoT1}">
+							required value="${param.nombreApellidoT1}" pattern="[a-zA-Z ]+">
 					</div>
 					<div class="col">
 						<input type="text" name="dniT1"
 							class="form-control text-uppercase" placeholder="DNI*"
-							aria-label="Last name" required value="${param.dniT1}">
+							aria-label="Last name" required value="${param.dniT1}" pattern="[0-9]{8}[A-Za-z]{1}">
 					</div>
 				</div>
 				<div class="row g-3">
 					<div class="col">
 						<input type="text" name="profesionT1"
 							class="form-control text-capitalize" placeholder="Profesión"
-							aria-label="First name" value="${param.profesionT1}">
+							aria-label="First name" value="${param.profesionT1}" pattern="[a-zA-Z ]+">
 					</div>
 					<div class="col">
 						<input type="text" name="telefonoT1"
 							class="form-control text-capitalize" placeholder="Teléfono*"
-							aria-label="Last name" value="${param.telefonoT1}" pattern="[0-9]{9}">
+							aria-label="Last name" value="${param.telefonoT1}" pattern="[6789]{1}[0-9]{8}">
 							<div class="invalid-feedback">
 					      	 	 Teléfono invalido
 					      	</div>
@@ -99,7 +99,7 @@
 					<div class="col">
 						<input type="text" name="emailT1"
 							class="form-control text-lowercase" placeholder="Email"
-							aria-label="First name" value="${param.emailT1}">
+							aria-label="First name" value="${param.emailT1}" >
 					</div>
 					<div class="col">
 						<select name="parentesco" class="form-select "
@@ -119,24 +119,24 @@
 					<div class="col">
 						<input type="text" name="nombreApellidoT2"
 							class="form-control text-capitalize"
-							placeholder="Nombre y Apellidos" aria-label="First name">
+							placeholder="Nombre y Apellidos" aria-label="First name" pattern="[a-zA-Z ]+">
 					</div>
 					<div class="col">
 						<input type="text" name="dniT2"
 							class="form-control text-uppercase" placeholder="DNI"
-							aria-label="Last name">
+							aria-label="Last name" pattern="[0-9]{8}[a-zA-Z]{1}">
 					</div>
 				</div>
 				<div class="row g-3">
 					<div class="col">
 						<input type="text" name="profesionT2"
 							class="form-control text-capitalize" placeholder="Profesión"
-							aria-label="First name">
+							aria-label="First name" pattern="[a-zA-Z ]+">
 					</div>
 					<div class="col">
 						<input type="text" name="telefonoT2"
 							class="form-control text-capitalize" placeholder="Teléfono"
-							aria-label="Last name">
+							aria-label="Last name" pattern="[6789]{1}[0-9]{8}">
 					</div>
 				</div>
 				<div class="row g-3">
@@ -192,28 +192,28 @@
 				<div class="input-group mb-3">
 					<span class="input-group-text">Nombre y Apellidos</span> <input
 						type="text" class="form-control text-capitalize" name="autor1"
-						aria-label="Username" required> <span
+						aria-label="Username" required pattern="[a-zA-Z ]+"> <span
 						class="input-group-text">DNI</span> <input type="text"
 						class="form-control text-capitalize" name="dniAuto1"
-						aria-label="Server" required> <span
+						aria-label="Server" required pattern="[0-9]{8}[a-zA-Z]{1}"> <span
 						class="input-group-text">Teléfono</span> <input type="text"
 						class="form-control text-capitalize" name="telefonoAuto1"
-						aria-label="Server" required> <span
+						aria-label="Server" required pattern="[6789]{1}[0-9]{8}"> <span
 						class="input-group-text">Parentesco</span> <input type="text"
 						class="form-control text-capitalize" aria-label="Server"
-						name="parentAuto1" required>
+						name="parentAuto1" required pattern="[a-zA-Z ]+">
 				</div>
 				<div class="input-group mb-3">
 					<span class="input-group-text ">Nombre y Apellidos</span> <input
 						type="text" class="form-control" name="autor2"
-						aria-label="Username"> <span class="input-group-text">DNI</span>
+						aria-label="Username" pattern="[a-zA-Z ]+"> <span class="input-group-text">DNI</span>
 					<input type="text" class="form-control text-capitalize"
-						name="dniAuto2" aria-label="Server"> <span
+						name="dniAuto2" aria-label="Server" pattern="[0-9]{8}[a-zA-Z]{1}"> <span
 						class="input-group-text">Teléfono</span> <input type="text"
-						class="form-control" name="telefonoAuto2" aria-label="Server">
+						class="form-control" name="telefonoAuto2" aria-label="Server" pattern="[6789]{1}[0-9]{8}">
 					<span class="input-group-text">Parentesco</span> <input type="text"
 						class="form-control text-capitalize" aria-label="Server"
-						name="parentAuto2">
+						name="parentAuto2" pattern="[a-zA-Z ]+">
 				</div>
 				<div class="input-group mb-3">
 					<span class="input-group-text">Nombre y Apellidos</span> <input
@@ -258,25 +258,22 @@
 		</form>
 	</div>
 	<script>
-	// Example starter JavaScript for disabling form submissions if there are invalid fields
-	(() => {
-	  'use strict'
-
-	  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-	  const forms = document.querySelectorAll('.needs-validation')
-
-	  // Loop over them and prevent submission
-	  Array.from(forms).forEach(form => {
-	    form.addEventListener('submit', event => {
-	      if (!form.checkValidity()) {
-	        event.preventDefault()
-	        event.stopPropagation()
-	      }
-
-	      form.classList.add('was-validated')
-	    }, false)
-	  })
-	})()
+		(() => {
+			  'use strict'
+			  
+			  const forms = document.querySelectorAll('.needs-validation')
+					
+			  Array.from(forms).forEach(form => {
+			    form.addEventListener('submit', event => {
+			      if (!form.checkValidity()) {
+			        event.preventDefault()
+			        event.stopPropagation()
+			      }
+		
+			      form.classList.add('was-validated')
+			    }, false)
+			  })
+			})()
 	</script>
 	
 	<jsp:include page="footer.jsp"></jsp:include>

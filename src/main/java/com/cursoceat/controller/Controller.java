@@ -7,7 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.beans.beancontext.BeanContextServiceProviderBeanInfo;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,10 +72,23 @@ public class Controller extends HttpServlet {
 		String dniAuto1=request.getParameter("dniAuto1");
 		String telefonoAuto1=request.getParameter("telefonoAuto1");
 		String parentAuto1=request.getParameter("parentAuto1");
+		
 		String errorT="";
-			
+		ArrayList<String> listaErrores=new ArrayList<>();	
 		//validar fnacimiento
 		//validar dni
+		
+		/**
+		 * vaLIDO DNI
+		 */
+		
+		if ( !validarDNI(dniAuto1) ) {
+			listaErrores.add("Verifique DNI");			
+		}
+		
+		if (!validarFN(fNacimiento)) {
+			listaErrores.add("Por la fecha de nacimeinto el niño no se puede dar de alta");
+		}
 		
 		if (nombreNino.isEmpty() || apellidosNino.isEmpty() || fNacimiento.isEmpty() || direccionN.isEmpty() 
 				|| poblacionN.isEmpty() || cpN.isEmpty() || nombreTutor1.isEmpty() ||
@@ -151,10 +167,6 @@ public class Controller extends HttpServlet {
 			
 		}
 	}
-
-	
-	
-	
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -163,15 +175,83 @@ public class Controller extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+// area de validacion
+	/**
+	 * 
+	 * @param tele
+	 * @return boolean
+	 * @description Validamos el telefono según formato de España
+	 * 
+	 */
     public boolean validarTel(String tele) {
 		
 		if ((!tele.startsWith("9") && !tele.startsWith("6") && !tele.startsWith("7") ) || tele.length()!=9 )	{
-			System.out.println(false);
-		return false;	
+			return false;	
 		}else {
-			System.out.println(true);
-		return true;
+			return true;
 		}
 	}
+    
+    
+    /**
+     * 
+     * @param fNacimiento
+     * @return boolean
+     * @description Validamos si el fecha nacimiento es de 6 años menos (el niño no puede tener mas de 6 años)
+     * 
+     */
+    public boolean validarFN(String fNacimiento) {
+    	LocalDate fechaN=LocalDate.parse(fNacimiento);
+    	int aniosNino=fechaN.getYear();
+    	int anioActual=LocalDate.now().getYear();
+     	if ((anioActual-aniosNino)>6  ||  anioActual+1<aniosNino)
+    	return false;
+       	else 
+       	return true;
+    }   
+    
+   public boolean validarDNI(String dNI) {
+	   String letra="TRWAGMYFPDXBNJZSQVHLCKE";
+	   // posicion inicial, longitud 
+	   String intDni=dNI.substring(0,8); // dividimos el dni: aqui las primeras 8 posiciones
+	   try { //intentamos hacer las operaciones
+	   //esta linea puede dar error, y programador tiene que saber controlar ese posible error
+	   int dNIEntero=Integer.parseInt(intDni)%23; // convertimos esas 8 posiciones a entero y sacamos el modulo
+	   char letraDni= dNI.toUpperCase().charAt(8); // convertimos a tipo char la posicion 9 que debe ser la letra y en may
+	   char letraCorrecta=letra.charAt(dNIEntero); // me trae la letra correcta segun el algoritmo de la policia
+	   /**
+	    * condicional para
+	    * 1. el string de dni sea igual a 9 posiciones
+	    * 2. que la letra introducida (letraDni) sea igual a letra del algoritmo de la policia (letraCorrecta)	    * 
+	    */
+	   if (dNI.length()==9 && letraDni==letraCorrecta) {
+		   return true;
+	   }else {
+		   return false;
+	   }
+	   
+	   }catch (Exception e) { //capturamos el error
+		return false;	   
+	   }finally {
+		   //esta vacio
+	   }
+}
+
+   /**
+    * 
+    * @param texto
+    * @return el texto con la primera letra en mayuscula
+    * @descripcion metodo para pasar la primera letra a mayuscula de cualquier texto
+    */
+   public String  pasarPmayuscula(String texto) {
+	   texto=texto.toLowerCase(); //paso todo el texto a minuscula
+	   String [] arrayTexto=texto.split(" ");// si es mas de una palabra la separamos en una array
+	   String temp=""; //creo la variable que se formara por cada interaccion del bucle que recorre el array
+	   for (int i=0; i<arrayTexto.length;i++) { //recorremos el array
+		   arrayTexto[i]=arrayTexto[i].substring(0,1).toUpperCase()+arrayTexto[i].substring(1); //pasamos la primera letra de cada palabra en mayus
+		   temp+=arrayTexto[i]+" "; //lo acumulamos en temp
+	   }
+	return temp.trim();//enviamos temp ya formateada y quitando espacios del principio y final
+}
+
 }
